@@ -1,0 +1,116 @@
+@model UniversityProjectMVC.Models.Student
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+        background-color: #1e3a8a;
+        height: 100vh;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .sidebar a:hover {
+        background-color: #374151;
+    }
+
+    .sidebar i {
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+        opacity: 1;
+    }
+
+    .logout-form {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .logout-form button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .logout-form button:hover {
+        background-color: #374151;
+    }
+
+    .content {
+        margin-left: 60px;
+        padding: 30px;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px;
+    }
+</style>
+
+<div class="sidebar">
+    <a href="/Student/Profile">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+    </a>
+    <a href="/Student/Group">
+        <i class="fas fa-book"></i>
+        <span>Group</span>
+    </a>
+
+    <!-- Logout Button -->
+    <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+    </form>
+</div>
+
+<div class="content">
+    <h2 class="text-2xl font-bold mb-4">🎓 Student Profile</h2>
+
+    <p><strong>Name:</strong> @Model?.Name</p>
+    <p><strong>Surname:</strong> @Model?.Surname</p>
+    <p><strong>Faculty:</strong> @Model?.Faculty?.Name</p>
+    <p><strong>Major:</strong> @Model?.Major?.Title</p>
+    <p><strong>Group:</strong> @Model?.TeacherGroup?.GroupName</p>
+    <p><strong>Subject:</strong> @Model?.Subject?.Name</p>
+</div>
