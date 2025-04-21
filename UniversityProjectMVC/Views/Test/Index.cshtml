@@ -1,0 +1,39 @@
+@model List<Test>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="container">
+        <div class="row g-2 mt-1">
+            <div class="col-1">Id</div>
+            <div class="col-3">Name</div>
+            <div class="col-3">Questions Count</div>
+        </div>
+        <hr>
+        @foreach (var test in Model)
+        {
+            <div class="row g-2 mt-1">
+                <div class="col-1">@test.Id</div>
+                <div class="col-3">@test.Title</div>
+                <div class="col-1">@test.Questions.Count</div>
+                <div class="col-1 offset-3">
+                    <a class="btn btn-primary w-100 d-block" asp-area="" asp-controller="Test" asp-action="Take"
+                        asp-route-id=@test.Id>Take</a>
+                </div>
+                <div class="col-1">
+                    <button class="btn w-100 btn-primary">Update</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn w-100 btn-primary">Questions</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn w-100 btn-danger">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div>
+        Nothing found
+    </div>
+}

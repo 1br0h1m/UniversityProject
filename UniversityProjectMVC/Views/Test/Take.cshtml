@@ -1,0 +1,24 @@
+@using UniversityProjectMVC.ViewModels
+@model TestSubmissionViewModel
+
+<h2>@Model.TestTitle</h2>
+<form asp-action="Submit" method="post">
+    <input type="hidden" asp-for="TestId" />
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        var question = Model.Questions[i];
+        <div>
+            <p><strong>@(i + 1). @question.QuestionText</strong></p>
+
+            @foreach (var answer in question.Answers)
+            {
+                <div>
+                    <input type="radio" name="SelectedAnswers[@question.QuestionId]" value="@answer.Id" required />
+                    <label>@answer.Title</label>
+                </div>  
+            }
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary mt-3">Submit Test</button>
+</form>

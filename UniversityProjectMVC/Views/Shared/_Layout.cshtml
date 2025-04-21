@@ -1,3 +1,7 @@
+@{
+    string? errorMessage = TempData["ErrorMessage"]?.ToString();
+    string? successMessage = TempData["SuccessMessage"]?.ToString();
+}
 
 <!DOCTYPE html>
 <html>
@@ -35,6 +39,18 @@
         <h1>@ViewData["Title"]</h1>
     </header>
 
+        @if (successMessage is not null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @successMessage
+            </div>
+        }
+        @if (errorMessage is not null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @errorMessage
+            </div>
+        }
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
