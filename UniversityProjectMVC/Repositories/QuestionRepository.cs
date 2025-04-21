@@ -17,6 +17,7 @@ namespace UniversityProjectMVC.Repositories
         {
             var questions = await context.Questions
                 .AsNoTracking()
+                .Include(q => q.Answers)
                 .ToListAsync();
             return questions;
         }
@@ -24,6 +25,7 @@ namespace UniversityProjectMVC.Repositories
         {
             var question = await context.Questions
                 .AsNoTracking()
+                .Include(q => q.Answers)
                 .SingleOrDefaultAsync(q => q.Id == id);
             return question;
         }

@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversityProjectMVC.Models;
 using UniversityProjectMVC.Services;
+using UniversityProjectMVC.ViewModels;
 
 namespace UniversityProjectMVC.Controllers
 {
     // [Authorize]
     [Route("[controller]/[action]")]
-    public class TestController(TestService testService, SubjectService subjectService) : Controller
+    public class TestController(QuestionService questionService, TestService testService, SubjectService subjectService) : Controller
     {
         readonly TestService testService = testService;
 
@@ -48,19 +49,48 @@ namespace UniversityProjectMVC.Controllers
                 return RedirectToAction(nameof(Create));
             }
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Pass(int id, int questionNumber = 1) {
-            ViewData["Answers"] = new List<string>();
-            ViewData["QuestionNumber"] = questionNumber;
-            var tests = testService.Get(id);
-            return View(tests);
+
+        public async Task<ActionResult> Take(int id)
+        {
+            var test = await testService.Get(id);
+
+            if (test == null)
+                return NotFound();
+
+            var viewModel = new TestSubmissionViewModel
+            {
+                TestId = test.Id,
+                TestTitle = test.Title,
+                Questions = test.Questions.Select(q => new QuestionWithAnswers
+                {
+                    QuestionId = q.Id,
+                    QuestionText = q.Title,
+                    Answers = q.Answers.ToList()
+                }).ToList()
+            };
+
+            return View(viewModel);
         }
+
         [HttpPost]
-        public async Task<ActionResult> SubmitAnswer([FromForm] Submission submission) {
-            var answers = ViewData["Answers"] as List<String>;
-            answers?.Add(submission.ChoosenAnswer);
-            ViewData["Answers"] = answers;
-            return RedirectToAction($"pass/{submission.TestId}", submission.QuestionNumber + 1);
+        public async Task<IActionResult> Submit(TestSubmissionViewModel model)
+        {
+            int correctCount = 0;
+
+            foreach (var entry in model.SelectedAnswers)
+            {
+                var question = await questionService.Get(entry.Key);
+                var answer = question?.Answers?.FirstOrDefault(a => a.Id == entry.Value);
+
+                if (answer != null && answer.Title == question.CorrectAnswerTitle)
+                    correctCount++;
+            }
+
+            ViewBag.CorrectAnswers = correctCount;
+            ViewBag.TotalQuestions = model.SelectedAnswers.Count;
+
+            return View("Result");
         }
+
     }
 }

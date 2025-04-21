@@ -26,6 +26,8 @@ namespace UniversityProjectMVC.Repositories
         {
             var test = await context.Tests
                 .AsNoTracking()
+                .Include(t => t.Questions)
+                .ThenInclude(q => q.Answers)
                 .SingleOrDefaultAsync(q => q.Id == id);
             return test;
         }
