@@ -1,35 +1,183 @@
 @model List<Question>
-@if (Model != null && Model.Count > 0)
-{
-    <div class="container">
-        <div class="row g-2 mt-1">
-            <div class="col-1">Id</div>
-            <div class="col-3">Title</div>
-            <div class="col-3">Answers Count</div>
-        </div>
-        <hr>
-        @foreach (var question in Model)
-        {
-            <div class="row g-2 mt-1">
-                <div class="col-1">@question.Id</div>
-                <div class="col-3">@question.Title</div>
-                <div class="col-1">@question.Answers.Count</div>
-                <div class="col-1 offset-4">
-                    <button class="btn w-100 btn-primary">Update</button>
-                </div>
-                <div class="col-1">
-                    <button class="btn w-100 btn-primary">Questions</button>
-                </div>
-                <div class="col-1">
-                    <button class="btn w-100 btn-danger">Delete</button>
-                </div>
+
+@{
+    ViewData["Title"] = "Questions List";
+}
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    body {
+        background-color: #f3f4f6;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+        background-color: #1e3a8a;
+        height: 100vh;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .sidebar a:hover,
+    .logout-form button:hover {
+        background-color: #374151;
+    }
+
+    .sidebar i {
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+        opacity: 1;
+    }
+
+    .logout-form {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .logout-form button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .content {
+        margin-left: 60px;
+        padding: 40px;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .row.header {
+        font-weight: bold;
+        background-color: #e0e7ff;
+        padding: 10px 0;
+        border-radius: 6px;
+    }
+
+    hr {
+        border-color: #cbd5e1;
+    }
+
+    .btn {
+        font-weight: 500;
+    }
+
+    .btn-danger {
+        background-color: #ef4444;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #dc2626;
+    }
+
+    .text-center {
+        margin-left: 60px;
+    }
+
+    .sidebar:hover ~ .text-center {
+        margin-left: 200px;
+    }
+</style>
+
+<div class="sidebar">
+    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Group</span></a>
+    <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
+
+    <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+    </form>
+</div>
+
+<div class="content">
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="container">
+            <div class="row header g-2">
+                <div class="col-1">Id</div>
+                <div class="col-4">Title</div>
+                <div class="col-2">Answers Count</div>
+                <div class="col-5 text-end">Actions</div>
             </div>
-        }
-    </div>
-}
-else
-{
-    <div>
-        Nothing found
-    </div>
-}
+            <hr />
+            @foreach (var question in Model)
+            {
+                <div class="row g-2 align-items-center mt-2">
+                    <div class="col-1">@question.Id</div>
+                    <div class="col-4">@question.Title</div>
+                    <div class="col-2">@question.Answers.Count</div>
+
+                    <div class="col-5 d-flex justify-content-end gap-2">
+                        <a class="btn btn-warning" asp-controller="Question" asp-action="Edit" asp-route-id="@question.Id">Update</a>
+                        <a class="btn btn-info text-white" asp-controller="Answer" asp-action="Index" asp-route-questionId="@question.Id">Answers</a>
+                        <form asp-controller="Question" asp-action="Delete" asp-route-id="@question.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this question?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center mt-5">
+            <h4>No questions found.</h4>
+        </div>
+    }
+</div>

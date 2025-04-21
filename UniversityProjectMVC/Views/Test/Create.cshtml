@@ -1,25 +1,183 @@
 @model Test
 @{
-    var subjects = ViewData["Subjects"];
-    Console.WriteLine(subjects);
-    if (subjects is SelectList)
-    {
-        Console.WriteLine("LIIST");
-    }
+    ViewData["Title"] = "Create Test";
 }
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <select asp-for="SubjectId" class="form-control" asp-items="@(new SelectList(ViewData["Subjects"] as List<Subject>, "Id", "Name"))">
-            <option value="">Choose subject</option>
-        </select>
-    </div>
-    <div class="form-group mt-2">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    body {
+        background-color: #f3f4f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+        background-color: #1e3a8a;
+        height: 100vh;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .sidebar a:hover {
+        background-color: #374151;
+    }
+
+    .sidebar i {
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+        opacity: 1;
+    }
+
+    .logout-form {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .logout-form button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .logout-form button:hover {
+        background-color: #374151;
+    }
+
+    .content {
+        margin-left: 60px;
+        padding: 40px;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px;
+    }
+
+    form {
+        max-width: 500px;
+        margin: auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: 600;
+        color: #1e3a8a;
+    }
+
+    input[type="text"], select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background-color: #f9fafb;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus, select:focus {
+        border-color: #2563eb;
+        outline: none;
+    }
+
+    .btn-primary {
+        background-color: #1e3a8a;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #3749b4;
+    }
+
+    .text-danger {
+        font-size: 0.9em;
+    }
+</style>
+
+<div class="sidebar">
+    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Groups</span></a>
+    <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
+
+    <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+    </form>
+</div>
+
+<div class="content">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-2">
+            <label asp-for="SubjectId" class="control-label"></label>
+            <select asp-for="SubjectId" class="form-control" asp-items="@(new SelectList(ViewData["Subjects"] as List<Subject>, "Id", "Name"))">
+                <option value="">Choose subject</option>
+            </select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-2">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

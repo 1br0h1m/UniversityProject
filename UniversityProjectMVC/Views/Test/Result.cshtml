@@ -1,6 +1,174 @@
 @{
     ViewData["Title"] = "Test Result";
+    int correct = ViewBag.CorrectAnswers;
+    int total = ViewBag.TotalQuestions;
+    double score = total > 0 ? ((double)correct / total) * 100 : 0;
+
+    string scoreColor = "gray";
+
+    if (score < 60)
+        scoreColor = "red";
+    else if (score < 70)
+        scoreColor = "orange";
+    else if (score < 80)
+        scoreColor = "gold";
+    else if (score < 90)
+        scoreColor = "lightgreen";
+    else
+        scoreColor = "green";
 }
 
-<h2>Test Result</h2>
-<p>You answered @ViewBag.CorrectAnswers out of @ViewBag.TotalQuestions questions correctly.</p>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    body {
+        background-color: #f3f4f6;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+        background-color: #1e3a8a;
+        height: 100vh;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .sidebar a:hover,
+    .logout-form button:hover {
+        background-color: #374151;
+    }
+
+    .sidebar i {
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+        opacity: 1;
+    }
+
+    .logout-form {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .logout-form button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .content {
+        margin-left: 60px;
+        padding: 40px;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px;
+    }
+
+    .result-container {
+        max-width: 600px;
+        margin: 80px auto;
+        padding: 30px;
+        background-color: #f8fafc;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #1e3a8a;
+        margin-bottom: 20px;
+    }
+
+    .score {
+        font-size: 1.3rem;
+        color: #334155;
+        font-weight: 500;
+    }
+
+    .percentage {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .btn-home {
+        margin-top: 30px;
+        background-color: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-home:hover {
+        background-color: #3749b4;
+    }
+</style>
+
+<div class="sidebar">
+    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Group</span></a>
+    <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
+
+    <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+    </form>
+</div>
+
+<div class="content">
+    <div class="result-container">
+        <h2>Test Result</h2>
+        <p class="score">You answered <strong>@correct</strong> out of <strong>@total</strong> questions correctly.</p>
+        <p class="percentage" style="color:@scoreColor">Your Score: @Math.Round(score, 2)%</p>
+
+        <a class="btn-home" asp-controller="Test" asp-action="Index">Back to Tests</a>
+    </div>
+</div>

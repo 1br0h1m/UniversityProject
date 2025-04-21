@@ -1,38 +1,194 @@
 @model Question
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+@{
+    ViewData["Title"] = "Create Question";
+}
 
-    <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <div class="form-group mt-2">
-        <select asp-for="TestId" class="form-control"
-                asp-items="@(new SelectList(ViewData["Tests"] as List<Test>, "Id", "Title"))">
-            <option value="">Choose test</option>
-        </select>
-    </div>
+<style>
+    body {
+        background-color: #f3f4f6;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <div id="answers-container">
-        @for (int i = 0; i < Model.Answers.Count; i++)
-        {
-            <div class="answer-group mb-2 d-flex align-items-center gap-2">
-                <input type="radio" name="CorrectIndex" value="@i" @(i == 0 ? "checked" : "") />
-                <label class="mb-0">Answer @(i + 1):</label>
-                <input name="Answers[@i].Title" class="form-control" value="@Model.Answers[i].Title" />
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+        background-color: #1e3a8a;
+        height: 100vh;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+`
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .sidebar a:hover,
+    .logout-form button:hover {
+        background-color: #374151;
+    }
+
+    .sidebar i {
+        width: 25px;
+        text-align: center;
+    }
+
+    .sidebar span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover span {
+        opacity: 1;
+    }
+
+    .logout-form {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .logout-form button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .content {
+        margin-left: 60px;
+        padding: 40px;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar:hover ~ .content {
+        margin-left: 200px;
+    }
+
+    .question-form {
+        max-width: 700px;
+        margin: auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .answer-group input[type="radio"] {
+        margin-right: 8px;
+    }
+
+    .answer-group label {
+        width: 100px;
+        white-space: nowrap;
+    }
+
+    .form-group select,
+    .form-group input[type="text"],
+    .form-control {
+        border-radius: 8px;
+        background-color: #f9fafb;
+    }
+
+    .btn-primary {
+        background-color: #1e3a8a;
+        border: none;
+        padding: 10px 24px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #3749b4;
+    }
+
+    .btn-secondary {
+        border-radius: 8px;
+    }
+</style>
+
+<div class="sidebar">
+    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Group</span></a>
+    <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
+
+    <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+    </form>
+</div>
+
+<div class="content">
+    <div class="question-form">
+        <h2>Create Question</h2>
+
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-        }
-    </div>
 
-    <button type="button" class="btn btn-secondary mt-2" id="add-answer">Add Answer</button>
+            <div class="form-group mb-3">
+                <label asp-for="TestId">Select Test</label>
+                <select asp-for="TestId" class="form-control"
+                        asp-items="@(new SelectList(ViewData["Tests"] as List<Test>, "Id", "Title"))">
+                    <option value="">Choose test</option>
+                </select>
+            </div>
 
-    <div class="form-group mt-3">
-        <input type="submit" value="Create" class="btn btn-primary" />
+            <div id="answers-container">
+                @for (int i = 0; i < Model.Answers.Count; i++)
+                {
+                    <div class="answer-group mb-2 d-flex align-items-center gap-2">
+                        <input type="radio" name="CorrectIndex" value="@i" @(i == 0 ? "checked" : "") />
+                        <label class="mb-0">Answer @(i + 1):</label>
+                        <input name="Answers[@i].Title" class="form-control" value="@Model.Answers[i].Title" />
+                    </div>
+                }
+            </div>
+
+            <button type="button" class="btn btn-secondary mt-2" id="add-answer">Add Answer</button>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 @section Scripts {
     <script>

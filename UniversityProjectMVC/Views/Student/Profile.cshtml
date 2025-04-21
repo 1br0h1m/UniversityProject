@@ -89,15 +89,10 @@
 </style>
 
 <div class="sidebar">
-    <a href="/Student/Profile">
-        <i class="fas fa-user"></i>
-        <span>Profile</span>
-    </a>
-    <a href="/Student/Group">
-        <i class="fas fa-book"></i>
-        <span>Group</span>
-    </a>
-
+    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Group</span></a>
+    <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
     <!-- Logout Button -->
     <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
         <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
