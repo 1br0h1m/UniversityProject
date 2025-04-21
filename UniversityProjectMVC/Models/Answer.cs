@@ -1,4 +1,4 @@
-﻿namespace UniversityProjectMVC.Models
+namespace UniversityProjectMVC.Models
 {
     public class Answer
     {

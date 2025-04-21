@@ -5,12 +5,24 @@ using UniversityProjectMVC.Models;
 using UniversityProjectMVC.Repositories;
 using UniversityProjectMVC.Services;
 using UniversityProjectMVC.Validators;
+using Microsoft.EntityFrameworkCore;
+using UniversityProjectMVC.Data; 
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 string connectionString = builder.Configuration.GetConnectionString("TestsDb")!;
+
+builder.Services.AddDbContext<UniversityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnectionString")));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(options =>
+{
+    options.LoginPath = "/Identity/Login";
+    options.AccessDeniedPath = "/Identity/AccessDenied";
+});
 
 builder.Services.AddScoped<TestRepository>();
 builder.Services.AddScoped<TestService>();

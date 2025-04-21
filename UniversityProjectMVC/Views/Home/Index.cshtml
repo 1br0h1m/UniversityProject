@@ -2,7 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="text-align: center; margin-top: 50px;">
+    <h1>Welcome to the University Portal 🎓</h1>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <a href="/Identity/Login"
+           style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #2563eb; color: white; text-decoration: none; border-radius: 5px;">
+            🔐 Login
+        </a>
+    }
+    else
+    {
+        <p style="margin-top: 20px;">👋 Hello, @User.Identity.Name</p>
+
+        <form method="post" action="/Home/Logout" style="margin-top: 10px;">
+            <button type="submit" style="padding: 8px 16px; background-color: #ef4444; color: white; border: none; border-radius: 5px;">
+                🚪 Logout
+            </button>
+        </form>
+    }
 </div>
