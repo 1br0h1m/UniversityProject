@@ -1,15 +1,32 @@
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using UniversityProjectMVC.EntityFramework;
+using UniversityProjectMVC.Models;
+using UniversityProjectMVC.Repositories;
+using UniversityProjectMVC.Services;
+using UniversityProjectMVC.Validators;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+string connectionString = builder.Configuration.GetConnectionString("TestsDb")!;
+
+builder.Services.AddScoped<TestRepository>();
+builder.Services.AddScoped<TestService>();
+builder.Services.AddScoped<SubjectRepository>();
+builder.Services.AddScoped<SubjectService>();
+builder.Services.AddScoped<QuestionRepository>();
+builder.Services.AddScoped<QuestionService>();
+builder.Services.AddDbContext<ExamDbContext>(options =>
+                options.UseNpgsql(connectionString));
+builder.Services.AddScoped<IValidator<Question>, QuestionValidator>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

@@ -1,0 +1,56 @@
+@model Question
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-2">
+        <select asp-for="TestId" class="form-control"
+                asp-items="@(new SelectList(ViewData["Tests"] as List<Test>, "Id", "Title"))">
+            <option value="">Choose test</option>
+        </select>
+    </div>
+
+    <div id="answers-container">
+        @for (int i = 0; i < Model.Answers.Count; i++)
+        {
+            <div class="answer-group mb-2 d-flex align-items-center gap-2">
+                <input type="radio" name="CorrectIndex" value="@i" @(i == 0 ? "checked" : "") />
+                <label class="mb-0">Answer @(i + 1):</label>
+                <input name="Answers[@i].Title" class="form-control" value="@Model.Answers[i].Title" />
+            </div>
+        }
+    </div>
+
+    <button type="button" class="btn btn-secondary mt-2" id="add-answer">Add Answer</button>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let answerIndex = @Model.Answers.Count;
+
+        document.getElementById("add-answer").addEventListener("click", function () {
+            const container = document.getElementById("answers-container");
+            const div = document.createElement("div");
+            div.classList.add("answer-group", "mb-2", "d-flex", "align-items-center", "gap-2");
+
+            div.innerHTML = `
+                <input type="radio" name="CorrectIndex" value="${answerIndex}" />
+                <label class="mb-0">Answer ${answerIndex + 1}:</label>
+                <input name="Answers[${answerIndex}].Title" class="form-control" />
+            `;
+
+            container.appendChild(div);
+            answerIndex++;
+        });
+    </script>
+}
