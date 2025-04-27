@@ -28,23 +28,7 @@ namespace UniversityProjectWPF.Pages.Subject
         public ManageSubjectsPage()
         {
             InitializeComponent();
-        }
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var response = await httpClient.GetAsync(Urls.LocalUrl + "/api/subjects/get");
-                response.EnsureSuccessStatusCode();
-
-                var content = await response.Content.ReadFromJsonAsync<List<SubjectViewModel>>();
-
-                Subjects.ItemsSource = content;
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage.Text = $"Ошибка: {ex.Message}";
-                ErrorMessage.Visibility = Visibility.Visible;
-            }
+            DataContext = new SubjectsViewModel();
         }
     }
 }

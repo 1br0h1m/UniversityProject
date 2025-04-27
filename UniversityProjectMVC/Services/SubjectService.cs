@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.IdentityModel.Tokens;
 using UniversityProjectMVC.Models;
 using UniversityProjectMVC.Repositories;
 
@@ -21,12 +22,16 @@ public class SubjectService(SubjectRepository repository)
     {
         return await repository.Get(title);
     }
-    public async Task<bool> Update(Subject subject)
+    public async Task<bool> Update(Subject newSubjectData)
     {
+        var subject = await repository.Get(newSubjectData.Id) ?? throw new KeyNotFoundException();
+        subject.Name = !newSubjectData.Name.IsNullOrEmpty() ? newSubjectData.Name : subject.Name;
+        subject.Tests = !newSubjectData.Tests.IsNullOrEmpty() ? newSubjectData.Tests : subject.Tests;
         return await repository.Update(subject);
     }
-    public async Task<bool> Delete(Subject subject)
+    public async Task<bool> Delete(int id)
     {
+        var subject = await repository.Get(id) ?? throw new KeyNotFoundException();
         return await repository.Delete(subject);
     }
 }

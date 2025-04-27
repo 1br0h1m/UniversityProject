@@ -36,5 +36,33 @@ namespace UniversityProjectMVC.ApiControllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPut]
+        public async Task<ActionResult> Update(Subject subject)
+        {
+            try
+            {
+                var response = await service.Update(subject);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var response = await service.Delete(id);
+                if (response)
+                    return Ok();
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

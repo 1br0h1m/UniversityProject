@@ -32,7 +32,7 @@ namespace UniversityProjectWPF.Pages
 
         private async void Submit_Click(object sender, RoutedEventArgs e)
         {
-            var subject = new SubjectViewModel
+            var subject = new
             {
                 Name = Name.Text
             };
@@ -40,7 +40,7 @@ namespace UniversityProjectWPF.Pages
             string json = JsonSerializer.Serialize(subject);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(Urls.LocalUrl + "/subject/create", content);
+            var response = await httpClient.PostAsync(Urls.LocalUrl + "/api/subject/create", content);
 
             if (response.IsSuccessStatusCode)
             {

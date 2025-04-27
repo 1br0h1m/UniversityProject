@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityProjectWPF.ViewModels
 {
-    internal class TestViewModel
+    public class TestViewModel
     {
         public int Id { get; set; }
         public required string Title { get; set; }

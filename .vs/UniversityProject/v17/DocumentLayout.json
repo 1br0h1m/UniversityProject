@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectwpf\\pages\\subject\\managesubjectspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|solutionrelative:universityprojectwpf\\pages\\subject\\managesubjectspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{99AE32EC-575E-4D2C-975A-D42F5DEE007E}|UniversityProjectMVC\\UniversityProjectMVC.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectmvc\\models\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99AE32EC-575E-4D2C-975A-D42F5DEE007E}|UniversityProjectMVC\\UniversityProjectMVC.csproj|solutionrelative:universityprojectmvc\\models\\subject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99AE32EC-575E-4D2C-975A-D42F5DEE007E}|UniversityProjectMVC\\UniversityProjectMVC.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectmvc\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99AE32EC-575E-4D2C-975A-D42F5DEE007E}|UniversityProjectMVC\\UniversityProjectMVC.csproj|solutionrelative:universityprojectmvc\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectwpf\\pages\\subject\\managesubjectspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|solutionrelative:universityprojectwpf\\pages\\subject\\managesubjectspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectwpf\\pages\\subject\\managesubjectspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EE00F4A3-FC0D-4CB5-9104-B5554D03A28E}|UniversityProjectWPF\\UniversityProjectWPF.csproj|solutionrelative:universityprojectwpf\\pages\\subject\\managesubjectspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{99AE32EC-575E-4D2C-975A-D42F5DEE007E}|UniversityProjectMVC\\UniversityProjectMVC.csproj|c:\\users\\farzr\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\universityproject\\universityprojectmvc\\apicontrollers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,28 +30,53 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Subject.cs",
+              "DocumentMoniker": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectMVC\\Models\\Subject.cs",
+              "RelativeDocumentMoniker": "UniversityProjectMVC\\Models\\Subject.cs",
+              "ToolTip": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectMVC\\Models\\Subject.cs",
+              "RelativeToolTip": "UniversityProjectMVC\\Models\\Subject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T19:40:05.198Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "SubjectService.cs",
+              "DocumentMoniker": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectMVC\\Services\\SubjectService.cs",
+              "RelativeDocumentMoniker": "UniversityProjectMVC\\Services\\SubjectService.cs",
+              "ToolTip": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectMVC\\Services\\SubjectService.cs",
+              "RelativeToolTip": "UniversityProjectMVC\\Services\\SubjectService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T19:36:45.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ManageSubjectsPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml.cs",
               "RelativeDocumentMoniker": "UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml.cs",
               "ToolTip": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml.cs",
               "RelativeToolTip": "UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T10:31:18.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T10:31:18.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ManageSubjectsPage.xaml",
               "DocumentMoniker": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml",
               "RelativeDocumentMoniker": "UniversityProjectWPF\\Pages\\Subject\\ManageSubjectsPage.xaml",
@@ -55,7 +88,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SubjectController.cs",
               "DocumentMoniker": "C:\\Users\\farzr\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\repos\\UniversityProject\\UniversityProjectMVC\\ApiControllers\\SubjectController.cs",
               "RelativeDocumentMoniker": "UniversityProjectMVC\\ApiControllers\\SubjectController.cs",
@@ -63,8 +96,7 @@
               "RelativeToolTip": "UniversityProjectMVC\\ApiControllers\\SubjectController.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T08:17:53.246Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-27T08:17:53.246Z"
             }
           ]
         },
