@@ -34,6 +34,11 @@ builder.Services.AddScoped<QuestionService>();
 builder.Services.AddDbContext<ExamDbContext>(options =>
                 options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IValidator<Question>, QuestionValidator>();
+builder.Services.AddSingleton(new BlobService(
+    builder.Configuration.GetConnectionString("AzureBlobStorage"), 
+    "profilepictures" 
+));
+
 
 var app = builder.Build();
 
