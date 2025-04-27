@@ -49,7 +49,7 @@ namespace UniversityProjectMVC.Controllers
                 return RedirectToAction(nameof(Create));
             }
         }
-
+        [HttpGet]
         public async Task<ActionResult> Take(int id)
         {
             var test = await testService.Get(id);
