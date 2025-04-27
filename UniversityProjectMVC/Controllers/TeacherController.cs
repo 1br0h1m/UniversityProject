@@ -9,11 +9,14 @@ namespace UniversityProjectMVC.Controllers
     [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
+
+        private readonly BlobService _blobService;
         private readonly UniversityDbContext _context;
 
-        public TeacherController(UniversityDbContext context)
+        public TeacherController(UniversityDbContext context, BlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
         public IActionResult Index()
@@ -30,12 +33,11 @@ namespace UniversityProjectMVC.Controllers
         {
             var username = User.Identity?.Name;
 
-            // Find the teacher by matching the User.Username == Teacher.Surname + Teacher.Name
             var teacher = await _context.Teachers
                 .Include(t => t.Faculty)
                 .Include(t => t.Degree)
-                .Include(t => t.TeacherGroup)
-                .FirstOrDefaultAsync(t => (t.Surname + t.Name) == username);
+                .Include(t => t.Group)
+                .FirstOrDefaultAsync(t => (t.Name + t.Surname) == username);
 
             if (teacher == null)
             {
@@ -44,5 +46,28 @@ namespace UniversityProjectMVC.Controllers
 
             return View(teacher);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(IFormFile profilePicture)
+        {
+            var username = User.Identity?.Name;
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(t => (t.Name + t.Surname) == username);
+
+            if (teacher == null)
+                return NotFound();
+
+            if (profilePicture != null)
+            {
+               string fileName = $"{teacher.Name}_{teacher.Surname}_{DateTime.UtcNow.Ticks}{Path.GetExtension(profilePicture.FileName)}";
+               var imageUrl = await _blobService.UploadFileAsync(profilePicture, fileName);
+             teacher.ProfilePictureUrl = imageUrl;
+             await _context.SaveChangesAsync();
+            }
+
+            TempData["Success"] = "Profile picture updated!";
+
+            return RedirectToAction("Profile");
+        }
+
     }
 }

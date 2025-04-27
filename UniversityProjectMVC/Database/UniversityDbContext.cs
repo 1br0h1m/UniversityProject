@@ -11,7 +11,7 @@ namespace UniversityProjectMVC.Data;
         }
 
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<TeacherGroup> TeacherGroups { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<Degree> Degrees { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<User> Users { get; set; }

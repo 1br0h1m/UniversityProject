@@ -86,14 +86,29 @@
     .sidebar:hover ~ .content {
         margin-left: 200px;
     }
+
+    .profile-picture {
+        margin-bottom: 20px;
+    }
+
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .upload-form {
+        margin-top: 10px;
+    }
 </style>
 
 <div class="sidebar">
-    <a href="/Home/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
-    <a href="/Home/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
-    <a href="/Home/Group"><i class="fas fa-users"></i> <span>Group</span></a>
+    <a href="/Student/Index"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+    <a href="/Student/Profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <a href="/Student/Group"><i class="fas fa-users"></i> <span>Group</span></a>
     <a href="/Test/Index"><i class="fas fa-clipboard-check"></i> <span>Tests</span></a>
-    <!-- Logout Button -->
+    
     <form class="logout-form" method="post" asp-controller="Identity" asp-action="Logout">
         <button type="submit"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
     </form>
@@ -102,10 +117,39 @@
 <div class="content">
     <h2 class="text-2xl font-bold mb-4">🎓 Student Profile</h2>
 
+    <!-- Success Message -->
+    @if (TempData["Success"] != null)
+    {
+        <div id="successMessage" class="text-green-500 text-lg mb-4">
+            @TempData["Success"]
+        </div>
+
+        <script>
+            setTimeout(function () {
+                var msg = document.getElementById('successMessage');
+                if (msg) {
+                    msg.style.opacity = '0';
+                }
+            }, 3000); // Fade out after 3 seconds
+        </script>
+    }
+
+    <!-- Profile Picture -->
+    <div class="profile-picture">
+        <img src="@(Model?.ProfilePictureUrl ?? "/images/default-profile.png")" alt="Profile Picture" />
+    </div>
+
+    <!-- Upload Form -->
+    <form asp-controller="Student" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data" class="upload-form">
+        <input type="file" name="profilePicture" required />
+        <button type="submit" class="btn btn-primary mt-2">Upload Profile Picture</button>
+    </form>
+
+    <!-- Profile Info -->
     <p><strong>Name:</strong> @Model?.Name</p>
     <p><strong>Surname:</strong> @Model?.Surname</p>
     <p><strong>Faculty:</strong> @Model?.Faculty?.Name</p>
     <p><strong>Major:</strong> @Model?.Major?.Title</p>
-    <p><strong>Group:</strong> @Model?.TeacherGroup?.GroupName</p>
+    <p><strong>Group:</strong> @Model?.Group?.Name</p>
     <p><strong>Subject:</strong> @Model?.Subject?.Name</p>
 </div>
