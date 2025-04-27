@@ -5,12 +5,13 @@ using UniversityProjectMVC.Models;
 using UniversityProjectMVC.Repositories;
 using UniversityProjectMVC.Services;
 using UniversityProjectMVC.Validators;
-using Microsoft.EntityFrameworkCore;
 using UniversityProjectMVC.Data; 
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 
 string connectionString = builder.Configuration.GetConnectionString("TestsDb")!;
@@ -42,7 +43,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
