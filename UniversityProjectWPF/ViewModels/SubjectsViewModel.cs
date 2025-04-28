@@ -36,7 +36,7 @@ namespace UniversityProjectWPF.ViewModels
 
         public async Task LoadSubjectsAsync()
         {
-            var response = await httpClient.GetAsync(Urls.LocalUrl + "/api/subject/get");
+            var response = await httpClient.GetAsync(Urls.Url + "/api/subject/get");
             if (response.IsSuccessStatusCode)
             {
                 var subjects = await response.Content.ReadFromJsonAsync<List<SubjectViewModel>>();

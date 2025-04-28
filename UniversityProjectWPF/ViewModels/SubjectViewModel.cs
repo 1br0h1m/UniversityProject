@@ -47,13 +47,13 @@ namespace UniversityProjectWPF.ViewModels
         }
         private async void Delete()
         {
-            var response = await httpClient.DeleteAsync(Urls.LocalUrl + "/api/subject/delete/" + Id);
+            var response = await httpClient.DeleteAsync(Urls.Url + "/api/subject/delete/" + Id);
         }
         private async void SaveChanges()
         {
             Name = TempName;
             var subject = new { Id, Name = TempName };
-            var response = await httpClient.PutAsJsonAsync(Urls.LocalUrl + "/api/subject/update", subject);
+            var response = await httpClient.PutAsJsonAsync(Urls.Url + "/api/subject/update", subject);
 
             if (response.IsSuccessStatusCode)
             {

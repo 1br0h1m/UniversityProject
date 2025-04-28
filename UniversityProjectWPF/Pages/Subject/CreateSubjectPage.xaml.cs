@@ -40,7 +40,7 @@ namespace UniversityProjectWPF.Pages
             string json = JsonSerializer.Serialize(subject);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(Urls.LocalUrl + "/api/subject/create", content);
+            var response = await httpClient.PostAsync(Urls.Url + "/api/subject/create", content);
 
             if (response.IsSuccessStatusCode)
             {
