@@ -9,15 +9,32 @@
       Title="ManageSubjectsPage">
 
     <Grid>
-        <ListView x:Name="Subjects">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="ErrorMessage" Margin="0,10,0,0"/>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Subjects}"
+                 SelectedItem="{Binding SelectedSubject}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Id}" />
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedSubject}">
+            <TextBlock Text="Name" />
+            <TextBox Text="{Binding TempName, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Save" 
+                    Command="{Binding SaveCommand}"
+                    Margin="0,10" Padding="10,2"/>
+            <Button Content="Delete" 
+                    Command="{Binding DeleteCommand}"
+                    Margin="0,10" Padding="10,2"/>
+        </StackPanel>
     </Grid>
 </Page>
