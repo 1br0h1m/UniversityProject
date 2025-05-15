@@ -7,7 +7,7 @@ namespace UniversityProjectMVC.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class SubjectController(SubjectService service) : ControllerBase
+    public class SubjectAPIController(SubjectService service) : ControllerBase
     {
         readonly SubjectService service = service;
         [HttpGet]

@@ -62,4 +62,30 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = serviceScopeFactory.CreateScope())
+{
+    var universityDbContext = scope.ServiceProvider.GetService<UniversityDbContext>();
+    var examDbContext = scope.ServiceProvider.GetService<ExamDbContext>();
+    try
+    {
+        universityDbContext?.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"UniversityDbContext migration error: {ex.Message}");
+        universityDbContext?.Database.EnsureCreated();
+    }
+
+    try
+    {
+        examDbContext?.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"ExamDbContext migration error: {ex.Message}");
+        examDbContext?.Database.EnsureCreated();
+    }
+}
+
 app.Run();

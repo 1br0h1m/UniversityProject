@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    expose:
+      - 5432
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=UniversityAdmin
+      - POSTGRES_PASSWORD=Admin123
+      - POSTGRES_DB=university_exam
+    volumes:
+      - psql_volume:/var/lib/postgresql/data
+    networks:
+      - university_network
+    restart: always
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    expose:
+      - 1434
+    ports:
+      - 1434:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=secret12345!
+    volumes:
+      - mssql_volume:/var/opt/mssql 
+    networks:
+      - university_network
+    restart: always
+
+  mvc:
+    image: university
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mvc
+    expose:
+      - 5001
+    ports:
+      - 5000:8080
+    networks:
+      - university_network
+    depends_on:
+      - postgres
+      - mssql
+    restart: always
+
+networks:
+  university_network:
+    driver: bridge
+
+volumes:
+  psql_volume:
+  mssql_volume:

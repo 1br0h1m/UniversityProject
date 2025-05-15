@@ -1,5 +1,5 @@
 @model Subject
-<form asp-action="Create" method="post">
+<form asp-controller="Subject" asp-action="Create" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
